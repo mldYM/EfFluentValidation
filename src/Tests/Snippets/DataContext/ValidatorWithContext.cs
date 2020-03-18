@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using EntityFramework.FluentValidation;
 using FluentValidation;
+using FluentValidation.EntityFramework;
 
 public class ValidatorWithContext :
     AbstractValidator<Employee>

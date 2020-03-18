@@ -5,14 +5,14 @@ Source File: /readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/src/icon.png" height="30px"> EntityFramework.FluentValidation
+# <img src="/src/icon.png" height="30px"> FluentValidation.EntityFramework
 
-[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/entityframework-fluentvalidation)
-[![NuGet Status](https://img.shields.io/nuget/v/EntityFramework.FluentValidation.svg)](https://www.nuget.org/packages/EntityFramework.FluentValidation/)
+[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/fluentvalidation-entityframework)
+[![NuGet Status](https://img.shields.io/nuget/v/FluentValidation.EntityFramework.svg)](https://www.nuget.org/packages/FluentValidation.EntityFramework/)
 
 Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-entityframework.fluentvalidation?utm_source=nuget-entityframework.fluentvalidation&utm_medium=referral&utm_campaign=enterprise).
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-fluentvalidation.entityframework?utm_source=nuget-fluentvalidation.entityframework&utm_medium=referral&utm_campaign=enterprise).
 
 <!-- toc -->
 ## Contents
@@ -34,7 +34,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 
 ## NuGet package
 
- * https://nuget.org/packages/EntityFramework.FluentValidation/
+ * https://nuget.org/packages/FluentValidation.EntityFramework/
 
 
 ## Usage
@@ -89,7 +89,7 @@ public class EfContext
     public DbContext DbContext { get; }
     public EntityEntry EntityEntry { get; }
 ```
-<sup><a href='/src/EntityFramework.FluentValidation/Model/EfContext.cs#L6-L13' title='File snippet `efcontext` was extracted from'>snippet source</a> | <a href='#snippet-efcontext' title='Navigate to start of snippet `efcontext`'>anchor</a></sup>
+<sup><a href='/src/FluentValidation.EntityFramework/Model/EfContext.cs#L6-L13' title='File snippet `efcontext` was extracted from'>snippet source</a> | <a href='#snippet-efcontext' title='Navigate to start of snippet `efcontext`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Usage:
@@ -98,8 +98,8 @@ Usage:
 <a id='snippet-ValidatorWithContext.cs'/></a>
 ```cs
 using System.Diagnostics;
-using EntityFramework.FluentValidation;
 using FluentValidation;
+using FluentValidation.EntityFramework;
 
 public class ValidatorWithContext :
     AbstractValidator<Employee>
@@ -162,7 +162,7 @@ public static async Task<(bool isValid, IReadOnlyList<EntityValidationFailure> f
         DbContext dbContext,
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
-<sup><a href='/src/EntityFramework.FluentValidation/DbContextValidator.cs#L13-L29' title='File snippet `tryvalidatesignature` was extracted from'>snippet source</a> | <a href='#snippet-tryvalidatesignature' title='Navigate to start of snippet `tryvalidatesignature`'>anchor</a></sup>
+<sup><a href='/src/FluentValidation.EntityFramework/DbContextValidator.cs#L12-L28' title='File snippet `tryvalidatesignature` was extracted from'>snippet source</a> | <a href='#snippet-tryvalidatesignature' title='Navigate to start of snippet `tryvalidatesignature`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -186,7 +186,7 @@ public static async Task Validate(
         DbContext dbContext,
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
-<sup><a href='/src/EntityFramework.FluentValidation/DbContextValidator.cs#L71-L88' title='File snippet `validatesignature` was extracted from'>snippet source</a> | <a href='#snippet-validatesignature' title='Navigate to start of snippet `validatesignature`'>anchor</a></sup>
+<sup><a href='/src/FluentValidation.EntityFramework/DbContextValidator.cs#L70-L87' title='File snippet `validatesignature` was extracted from'>snippet source</a> | <a href='#snippet-validatesignature' title='Navigate to start of snippet `validatesignature`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -228,10 +228,9 @@ Implementation:
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.FluentValidation
+namespace FluentValidation.EntityFramework
 {
     public static class DefaultValidatorFactory<T>
         where T : DbContext
@@ -256,7 +255,7 @@ namespace EntityFramework.FluentValidation
     }
 }
 ```
-<sup><a href='/src/EntityFramework.FluentValidation/DefaultValidatorFactory.cs#L1-L30' title='File snippet `DefaultValidatorFactory.cs` was extracted from'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Navigate to start of snippet `DefaultValidatorFactory.cs`'>anchor</a></sup>
+<sup><a href='/src/FluentValidation.EntityFramework/DefaultValidatorFactory.cs#L1-L29' title='File snippet `DefaultValidatorFactory.cs` was extracted from'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Navigate to start of snippet `DefaultValidatorFactory.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -272,7 +271,7 @@ There are several approaches to adding validation to a DbContext
 <!-- snippet: SampleDbContext.cs -->
 <a id='snippet-SampleDbContext.cs'/></a>
 ```cs
-using EntityFramework.FluentValidation;
+using FluentValidation.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 public class SampleDbContext :

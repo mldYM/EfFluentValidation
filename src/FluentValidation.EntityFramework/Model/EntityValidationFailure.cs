@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EntityFramework.FluentValidation
+namespace FluentValidation.EntityFramework
 {
     public class EntityValidationFailure
     {

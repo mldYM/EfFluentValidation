@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.FluentValidation
+namespace FluentValidation.EntityFramework
 {
     public abstract class ValidatingDbContext :
         DbContext

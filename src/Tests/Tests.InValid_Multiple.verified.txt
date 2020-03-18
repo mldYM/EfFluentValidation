@@ -63,5 +63,5 @@
     }
   ],
   Data: {},
-  Source: 'EntityFramework.FluentValidation'
+  Source: 'FluentValidation.EntityFramework'
 }

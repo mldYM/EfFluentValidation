@@ -1,18 +1,18 @@
-# <img src="/src/icon.png" height="30px"> EntityFramework.FluentValidation
+# <img src="/src/icon.png" height="30px"> FluentValidation.EntityFramework
 
-[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/entityframework-fluentvalidation)
-[![NuGet Status](https://img.shields.io/nuget/v/EntityFramework.FluentValidation.svg)](https://www.nuget.org/packages/EntityFramework.FluentValidation/)
+[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/fluentvalidation-entityframework)
+[![NuGet Status](https://img.shields.io/nuget/v/FluentValidation.EntityFramework.svg)](https://www.nuget.org/packages/FluentValidation.EntityFramework/)
 
 Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-entityframework.fluentvalidation?utm_source=nuget-entityframework.fluentvalidation&utm_medium=referral&utm_campaign=enterprise).
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-fluentvalidation.entityframework?utm_source=nuget-fluentvalidation.entityframework&utm_medium=referral&utm_campaign=enterprise).
 
 toc
 
 
 ## NuGet package
 
- * https://nuget.org/packages/EntityFramework.FluentValidation/
+ * https://nuget.org/packages/FluentValidation.EntityFramework/
 
 
 ## Usage

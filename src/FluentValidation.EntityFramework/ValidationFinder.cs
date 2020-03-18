@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using FluentValidation;
 using Result = FluentValidation.AssemblyScanner.AssemblyScanResult;
 
-namespace EntityFramework.FluentValidation
+namespace FluentValidation.EntityFramework
 {
     public static class ValidationFinder
     {

@@ -1,8 +1,7 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
+﻿using FluentValidation.Validators;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFramework.FluentValidation
+namespace FluentValidation.EntityFramework
 {
     /// <summary>
     /// Extensions to FluentValidation.
