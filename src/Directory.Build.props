@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <NoWarn>CS1591;CS0649;CS8632</NoWarn>
+    <NoWarn>CS1591;CS1574</NoWarn>
     <Version>0.1.0</Version>
     <PackageTags>EntityFramework, FluentValidation, Validation</PackageTags>
     <Description>Adds FluentValidation support to EntityFramework.</Description>
