@@ -25,6 +25,28 @@ public class Tests :
 
     #endregion
 
+    [Fact]
+    public async Task InValid_Multiple()
+    {
+        var options = DbContextOptions();
+
+        await using var context = new SampleDbContext(options);
+        context.Add(new Employee {Content = ""});
+        context.Add(new Company {Content = ""});
+        var exception = await Assert.ThrowsAsync<EntityValidationException>(
+            () => context.SaveChangesAsync());
+        await Verify(exception);
+    }
+    [Fact]
+    public async Task Valid()
+    {
+        var options = DbContextOptions();
+
+        await using var context = new SampleDbContext(options);
+        context.Add(new Employee {Content = "a"});
+        await context.SaveChangesAsync();
+    }
+
     static DbContextOptions<SampleDbContext> DbContextOptions(
         [CallerMemberName] string databaseName = "")
     {
