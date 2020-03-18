@@ -5,14 +5,14 @@ Source File: /readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/src/icon.png" height="30px"> FluentValidation.EntityFramework
+# <img src="/src/icon.png" height="30px"> EfFluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/lqms26lthr90jhva?svg=true)](https://ci.appveyor.com/project/SimonCropp/fluentvalidation-entityframework)
-[![NuGet Status](https://img.shields.io/nuget/v/FluentValidation.EntityFramework.svg)](https://www.nuget.org/packages/FluentValidation.EntityFramework/)
+[![Build status](https://ci.appveyor.com/api/projects/status/lqms26lthr90jhva?svg=true)](https://ci.appveyor.com/project/SimonCropp/effluentvalidation)
+[![NuGet Status](https://img.shields.io/nuget/v/EfFluentValidation.svg)](https://www.nuget.org/packages/EfFluentValidation/)
 
 Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-fluentvalidation.entityframework?utm_source=nuget-fluentvalidation.entityframework&utm_medium=referral&utm_campaign=enterprise).
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-effluentvalidation?utm_source=nuget-effluentvalidation&utm_medium=referral&utm_campaign=enterprise).
 
 <!-- toc -->
 ## Contents
@@ -34,7 +34,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 
 ## NuGet package
 
- * https://nuget.org/packages/FluentValidation.EntityFramework/
+ * https://nuget.org/packages/EfFluentValidation/
 
 
 ## Usage
@@ -89,7 +89,7 @@ public class EfContext
     public DbContext DbContext { get; }
     public EntityEntry EntityEntry { get; }
 ```
-<sup><a href='/src/FluentValidation.EntityFramework/Model/EfContext.cs#L6-L13' title='File snippet `efcontext` was extracted from'>snippet source</a> | <a href='#snippet-efcontext' title='Navigate to start of snippet `efcontext`'>anchor</a></sup>
+<sup><a href='/src/EfFluentValidation/Model/EfContext.cs#L6-L13' title='File snippet `efcontext` was extracted from'>snippet source</a> | <a href='#snippet-efcontext' title='Navigate to start of snippet `efcontext`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Usage:
@@ -162,7 +162,7 @@ public static async Task<(bool isValid, IReadOnlyList<EntityValidationFailure> f
         DbContext dbContext,
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
-<sup><a href='/src/FluentValidation.EntityFramework/DbContextValidator.cs#L13-L29' title='File snippet `tryvalidatesignature` was extracted from'>snippet source</a> | <a href='#snippet-tryvalidatesignature' title='Navigate to start of snippet `tryvalidatesignature`'>anchor</a></sup>
+<sup><a href='/src/EfFluentValidation/DbContextValidator.cs#L13-L29' title='File snippet `tryvalidatesignature` was extracted from'>snippet source</a> | <a href='#snippet-tryvalidatesignature' title='Navigate to start of snippet `tryvalidatesignature`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -186,7 +186,7 @@ public static async Task Validate(
         DbContext dbContext,
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
-<sup><a href='/src/FluentValidation.EntityFramework/DbContextValidator.cs#L71-L88' title='File snippet `validatesignature` was extracted from'>snippet source</a> | <a href='#snippet-validatesignature' title='Navigate to start of snippet `validatesignature`'>anchor</a></sup>
+<sup><a href='/src/EfFluentValidation/DbContextValidator.cs#L71-L88' title='File snippet `validatesignature` was extracted from'>snippet source</a> | <a href='#snippet-validatesignature' title='Navigate to start of snippet `validatesignature`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -256,7 +256,7 @@ namespace EfFluentValidation
     }
 }
 ```
-<sup><a href='/src/FluentValidation.EntityFramework/DefaultValidatorFactory.cs#L1-L30' title='File snippet `DefaultValidatorFactory.cs` was extracted from'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Navigate to start of snippet `DefaultValidatorFactory.cs`'>anchor</a></sup>
+<sup><a href='/src/EfFluentValidation/DefaultValidatorFactory.cs#L1-L30' title='File snippet `DefaultValidatorFactory.cs` was extracted from'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Navigate to start of snippet `DefaultValidatorFactory.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
