@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # <img src="/src/icon.png" height="30px"> FluentValidation.EntityFramework
 
-[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/fluentvalidation-entityframework)
+[![Build status](https://ci.appveyor.com/api/projects/status/lqms26lthr90jhva?svg=true)](https://ci.appveyor.com/project/SimonCropp/fluentvalidation-entityframework)
 [![NuGet Status](https://img.shields.io/nuget/v/FluentValidation.EntityFramework.svg)](https://www.nuget.org/packages/FluentValidation.EntityFramework/)
 
 Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
