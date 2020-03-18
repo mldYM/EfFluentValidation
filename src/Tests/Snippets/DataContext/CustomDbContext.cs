@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EfFluentValidation;
 using FluentValidation;
-using FluentValidation.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace Custom

@@ -1,4 +1,4 @@
-﻿using FluentValidation.EntityFramework;
+﻿using EfFluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 public class SampleDbContext :

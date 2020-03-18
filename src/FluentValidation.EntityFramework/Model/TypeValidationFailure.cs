@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation.Results;
 
-namespace FluentValidation.EntityFramework
+namespace EfFluentValidation
 {
     public class TypeValidationFailure
     {

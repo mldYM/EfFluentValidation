@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FluentValidation.EntityFramework
+namespace EfFluentValidation
 {
     public class EntityValidationException :
         Exception

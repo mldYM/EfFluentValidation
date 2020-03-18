@@ -29,5 +29,5 @@
     }
   ],
   Data: {},
-  Source: 'FluentValidation.EntityFramework'
+  Source: 'EfFluentValidation'
 }

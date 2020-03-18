@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using FluentValidation.EntityFramework;
+using EfFluentValidation;
 using Microsoft.EntityFrameworkCore;
 using VerifyXunit;
 using Xunit;

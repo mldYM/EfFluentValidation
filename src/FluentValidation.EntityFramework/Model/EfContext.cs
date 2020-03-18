@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace FluentValidation.EntityFramework
+namespace EfFluentValidation
 {
     #region EfContext
 

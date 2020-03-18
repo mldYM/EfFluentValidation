@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace FluentValidation.EntityFramework
+namespace EfFluentValidation
 {
     public static class DefaultValidatorFactory<T>
         where T : DbContext
