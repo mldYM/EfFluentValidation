@@ -10,7 +10,24 @@ namespace EntityFramework.FluentValidation
 {
     public static class DbContextValidator
     {
-        public static async Task Validate(DbContext dbContext, Func<Type, IEnumerable<IValidator>> validatorFactory)
+        #region TryValidateSignature
+
+        /// <summary>
+        /// Validates a <see cref="DbContext"/> an relies on the caller to handle those results.
+        /// </summary>
+        /// <param name="dbContext">
+        /// The <see cref="DbContext"/> to validate.
+        /// </param>
+        /// <param name="validatorFactory">
+        /// A factory that accepts a entity type and returns
+        /// a list of corresponding <see cref="IValidator"/>.
+        /// </param>
+        public static async Task<(bool isValid, IReadOnlyList<EntityValidationFailure> failures)> TryValidate(
+                DbContext dbContext,
+                Func<Type, IEnumerable<IValidator>> validatorFactory)
+
+            #endregion
+
         {
             Guard.AgainstNull(dbContext, nameof(dbContext));
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
@@ -23,7 +40,8 @@ namespace EntityFramework.FluentValidation
                 var entity = entry.Entity;
                 var validationContext = new ValidationContext(entity);
                 var clrType = entry.Metadata.ClrType;
-                validationContext.RootContextData.Add("EfContext", new EfContext(dbContext,clrType));
+                var efContext = new EfContext(dbContext, entry);
+                validationContext.RootContextData.Add("EfContext", efContext);
                 foreach (var validator in validatorFactory(clrType))
                 {
                     IList<ValidationFailure> errors;
@@ -47,9 +65,33 @@ namespace EntityFramework.FluentValidation
                 }
             }
 
-            if (entityFailures.Any())
+            return (!entityFailures.Any(), entityFailures);
+        }
+
+        #region ValidateSignature
+
+        /// <summary>
+        /// Validates a <see cref="DbContext"/> and throws a <see cref="MessageValidationException"/>
+        /// if any changed entity is not valid.
+        /// </summary>
+        /// <param name="dbContext">
+        /// The <see cref="DbContext"/> to validate.
+        /// </param>
+        /// <param name="validatorFactory">
+        /// A factory that accepts a entity type and returns a
+        /// list of corresponding <see cref="IValidator"/>.
+        /// </param>
+        public static async Task Validate(
+                DbContext dbContext,
+                Func<Type, IEnumerable<IValidator>> validatorFactory)
+
+            #endregion
+
+        {
+            var (isValid, failures) = await TryValidate(dbContext, validatorFactory);
+            if (!isValid)
             {
-                throw new EntityValidationException(entityFailures);
+                throw new EntityValidationException(failures);
             }
         }
     }

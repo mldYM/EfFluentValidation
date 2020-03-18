@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EntityFramework.FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,28 @@ public class Tests :
             () => context.SaveChangesAsync());
         await Verify(exception);
     }
+
+    [Fact]
+    public Task FromAssemblyContaining()
+    {
+        #region FromAssemblyContaining
+        var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
+        #endregion
+        return Verify(scanResults);
+    }
+
+    [Fact]
+    public Task ValidatorTypeCacheUsage()
+    {
+        #region ValidatorTypeCacheUsage
+        var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
+        var typeCache = new ValidatorTypeCache(scanResults);
+        var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
+        #endregion
+
+        return Verify(validators.ToList().Select(x=>x.GetType()));
+    }
+
     [Fact]
     public async Task Valid()
     {

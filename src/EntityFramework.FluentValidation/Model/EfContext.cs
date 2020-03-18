@@ -1,19 +1,23 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EntityFramework.FluentValidation
 {
+    #region EfContext
+
     public class EfContext
     {
         public DbContext DbContext { get; }
-        public Type EntityType { get; }
+        public EntityEntry EntityEntry { get; }
 
-        public EfContext(DbContext dbContext, Type entityType)
+        #endregion
+
+        public EfContext(DbContext dbContext, EntityEntry entityEntry)
         {
             Guard.AgainstNull(dbContext, nameof(dbContext));
-            Guard.AgainstNull(entityType, nameof(entityType));
+            Guard.AgainstNull(entityEntry, nameof(entityEntry));
             DbContext = dbContext;
-            EntityType = entityType;
+            EntityEntry = entityEntry;
         }
     }
 }

@@ -9,22 +9,22 @@ namespace EntityFramework.FluentValidation
 {
     public static class ValidationFinder
     {
-        public static IEnumerable<Result> FindValidatorsInAssemblyContaining<T>(
+        public static IEnumerable<Result> FromAssemblyContaining<T>(
             bool throwForNonPublicValidators = true,
             bool throwForNoValidatorsFound = true)
         {
-            return FindValidatorsInAssemblyContaining(typeof(T), throwForNonPublicValidators, throwForNoValidatorsFound);
+            return FromAssemblyContaining(typeof(T), throwForNonPublicValidators, throwForNoValidatorsFound);
         }
 
-        public static IEnumerable<Result> FindValidatorsInAssemblyContaining(
+        public static IEnumerable<Result> FromAssemblyContaining(
             Type type, bool throwForNonPublicValidators = true,
             bool throwForNoValidatorsFound = true)
         {
             Guard.AgainstNull(type, nameof(type));
-            return FindValidatorsInAssembly(type.GetTypeInfo().Assembly, throwForNonPublicValidators, throwForNoValidatorsFound);
+            return FromAssembly(type.GetTypeInfo().Assembly, throwForNonPublicValidators, throwForNoValidatorsFound);
         }
 
-        public static IEnumerable<Result> FindValidatorsInAssembly(
+        public static IEnumerable<Result> FromAssembly(
             Assembly assembly,
             bool throwForNonPublicValidators = true,
             bool throwForNoValidatorsFound = true)

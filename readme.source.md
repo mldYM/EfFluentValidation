@@ -1,11 +1,11 @@
 # <img src="/src/icon.png" height="30px"> EntityFramework.FluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/g6njwv0aox62atu0?svg=true)](https://ci.appveyor.com/project/SimonCropp/entityframework-fluentvalidation)
+[![Build status](https://ci.appveyor.com/api/projects/status/tch5gibgf901ri1c?svg=true)](https://ci.appveyor.com/project/SimonCropp/entityframework-fluentvalidation)
 [![NuGet Status](https://img.shields.io/nuget/v/EntityFramework.FluentValidation.svg)](https://www.nuget.org/packages/EntityFramework.FluentValidation/)
 
-Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of EntityFramework bits.
+Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify.entityframework?utm_source=nuget-verify.entityframework&utm_medium=referral&utm_campaign=enterprise).
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-entityframework.fluentvalidation?utm_source=nuget-entityframework.fluentvalidation&utm_medium=referral&utm_campaign=enterprise).
 
 toc
 
@@ -16,6 +16,94 @@ toc
 
 
 ## Usage
+
+
+### Define Validators
+
+snippet: Employee.cs
+
+See [Creating your first validator](https://docs.fluentvalidation.net/en/latest/start.html).
+
+
+### Context
+
+Extra context is passed through FluentValidations [CustomContext](https://docs.fluentvalidation.net/en/latest/custom-validators.html#writing-a-custom-validator).
+
+Data:
+
+snippet: EfContext
+
+Usage:
+
+snippet: ValidatorWithContext.cs
+
+
+### ValidationFinder
+
+ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembly` to provide convenience methods for scanning Assemblies for validators.
+
+snippet: FromAssemblyContaining
+
+
+## DbContextValidator
+
+`DbContextValidator` performs the validation a DbContext. It has two method:
+
+
+### TryValidate
+
+snippet: TryValidateSignature
+
+
+### Validate
+
+snippet: ValidateSignature
+
+
+### ValidatorTypeCache
+
+`ValidatorTypeCache` creates and caches `IValidator` instances against their corresponding entity type.
+
+It can only be used against validators that have a public default constructor (i.e. no parameters).
+
+snippet: ValidatorTypeCacheUsage
+
+
+### ValidatorFactory
+
+Many APIs take a validation factory with the signature `Func<Type, IEnumerable<IValidator>>` where `Type` is the entity type and `IEnumerable<IValidator>` is all validators for that entity type.
+
+This approach allows a flexible approach on how Validators can be instantiated.
+
+
+#### DefaultValidatorFactory
+
+`DefaultValidatorFactory` combines [ValidatorTypeCache](#ValidatorTypeCache) and [ValidationFinder](#ValidationFinder).
+
+It assumes that all validators for a DbContext exist in the same assembly as the DbContext and have public default constructors.
+
+Implementation:
+
+snippet: DefaultValidatorFactory.cs
+
+
+## DbContext
+
+There are several approaches to adding validation to a DbContext
+
+
+### ValidatingDbContext
+
+`ValidatingDbContext` provides a base class with validation already implemented in `SaveChnages` and `SaveChangesAsync`
+
+snippet: SampleDbContext.cs
+
+
+### DbContext as a base
+
+In some scenarios it may not be possible to use a custom base class, I thise case `SaveChnages` and `SaveChangesAsync` can be overridden.
+
+snippet: CustomDbContext
 
 
 ## Security contact information

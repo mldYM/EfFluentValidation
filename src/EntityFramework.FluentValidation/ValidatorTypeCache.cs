@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
@@ -9,13 +8,15 @@ namespace EntityFramework.FluentValidation
 {
     public class ValidatorTypeCache
     {
-        ConcurrentDictionary<Type, IEnumerable<IValidator>> typeCache = new ConcurrentDictionary<Type, IEnumerable<IValidator>>();
+        Dictionary<Type, IEnumerable<IValidator>> typeCache = new Dictionary<Type, IEnumerable<IValidator>>();
 
         public ValidatorTypeCache(IEnumerable<Result> scanResults)
         {
-            foreach (var result in scanResults.GroupBy(x=>x.InterfaceType.GenericTypeArguments.Single()))
+            foreach (var result in scanResults.GroupBy(x => x.InterfaceType.GenericTypeArguments.Single()))
             {
-                typeCache[result.Key] = result.Select(x => Activator.CreateInstance(x.ValidatorType)).Cast<IValidator>();
+                typeCache[result.Key] = result
+                    .Select(x => Activator.CreateInstance(x.ValidatorType))
+                    .Cast<IValidator>();
             }
         }
 
