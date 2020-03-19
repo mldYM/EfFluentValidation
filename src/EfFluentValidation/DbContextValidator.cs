@@ -31,8 +31,7 @@ namespace EfFluentValidation
         {
             Guard.AgainstNull(dbContext, nameof(dbContext));
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
-            dbContext.ChangeTracker.DetectChanges();
-            var entries = dbContext.ChangeTracker.Entries();
+            var entries = dbContext.ModifiedEntries();
             var entityFailures = new List<EntityValidationFailure>();
             foreach (var entry in entries)
             {

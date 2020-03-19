@@ -27,6 +27,35 @@ public class Tests :
     #endregion
 
     [Fact]
+    public async Task Update()
+    {
+        var options = DbContextOptions();
+
+        await using var context = new SampleDbContext(options);
+        var entity = new Employee {Content = "Foo"};
+        context.Add(entity);
+        await context.SaveChangesAsync();
+        entity.Content = "";
+        var exception = await Assert.ThrowsAsync<EntityValidationException>(
+            () => context.SaveChangesAsync());
+        await Verify(exception);
+    }
+
+    [Fact]
+    public async Task Delete()
+    {
+        var options = DbContextOptions();
+
+        await using var context = new SampleDbContext(options);
+        var entity = new Employee {Content = "Foo"};
+        context.Add(entity);
+        await context.SaveChangesAsync();
+        entity.Content = "";
+        context.Remove(entity);
+        await context.SaveChangesAsync();
+    }
+
+    [Fact]
     public async Task InValid_Multiple()
     {
         var options = DbContextOptions();
@@ -67,6 +96,18 @@ public class Tests :
 
         await using var context = new SampleDbContext(options);
         context.Add(new Employee {Content = "a"});
+        await context.SaveChangesAsync();
+    }
+    [Fact]
+    public async Task UpdateValid()
+    {
+        var options = DbContextOptions();
+
+        await using var context = new SampleDbContext(options);
+        var employee = new Employee {Content = "a"};
+        context.Add(employee);
+        await context.SaveChangesAsync();
+        employee.Content = "b";
         await context.SaveChangesAsync();
     }
 
