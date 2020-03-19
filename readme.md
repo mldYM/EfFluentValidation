@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # <img src="/src/icon.png" height="30px"> EfFluentValidation
 
-[![Build status](https://ci.appveyor.com/api/projects/status/lqms26lthr90jhva?svg=true)](https://ci.appveyor.com/project/SimonCropp/effluentvalidation)
+[![Build status](https://ci.appveyor.com/api/projects/status/rj0vpbi5nd17se7h?svg=true)](https://ci.appveyor.com/project/SimonCropp/effluentvalidation)
 [![NuGet Status](https://img.shields.io/nuget/v/EfFluentValidation.svg)](https://www.nuget.org/packages/EfFluentValidation/)
 
 Adds [FluentValidation](https://fluentvalidation.net/) support to [EntityFramework](https://docs.microsoft.com/en-us/ef/core/).
