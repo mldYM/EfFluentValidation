@@ -17,6 +17,6 @@ static class AsyncValidatorChecker
 
     static bool IsAsync(IValidationRule validationRule, ValidationContext context)
     {
-        return validationRule.Validators.Any(validator => validator.ShouldValidateAsync(context));
+        return validationRule.Validators.Any(x => x.ShouldValidateAsync(context));
     }
 }

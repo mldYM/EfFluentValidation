@@ -7,7 +7,11 @@ static class Extensions
 {
     public static IEnumerable<EntityEntry> ModifiedEntries(this DbContext dbContext)
     {
-        dbContext.ChangeTracker.DetectChanges();
-        return dbContext.ChangeTracker.Entries().Where(x=>x.State == EntityState.Added || x.State == EntityState.Modified);
+        var tracker = dbContext.ChangeTracker;
+        tracker.DetectChanges();
+        return tracker
+            .Entries()
+            .Where(x=>x.State == EntityState.Added ||
+                      x.State == EntityState.Modified);
     }
 }
