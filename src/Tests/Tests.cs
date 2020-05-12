@@ -17,10 +17,10 @@ public class Tests :
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        context.Add(new Employee {Content = ""});
+        await using var data = new SampleDbContext(options);
+        data.Add(new Employee {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
-            () => context.SaveChangesAsync());
+            () => data.SaveChangesAsync());
         await Verify(exception);
     }
 
@@ -31,13 +31,16 @@ public class Tests :
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        var entity = new Employee {Content = "Foo"};
-        context.Add(entity);
-        await context.SaveChangesAsync();
+        await using var data = new SampleDbContext(options);
+        var entity = new Employee
+        {
+            Content = "Foo"
+        };
+        data.Add(entity);
+        await data.SaveChangesAsync();
         entity.Content = "";
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
-            () => context.SaveChangesAsync());
+            () => data.SaveChangesAsync());
         await Verify(exception);
     }
 
@@ -46,13 +49,16 @@ public class Tests :
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        var entity = new Employee {Content = "Foo"};
-        context.Add(entity);
-        await context.SaveChangesAsync();
+        await using var data = new SampleDbContext(options);
+        var entity = new Employee
+        {
+            Content = "Foo"
+        };
+        data.Add(entity);
+        await data.SaveChangesAsync();
         entity.Content = "";
-        context.Remove(entity);
-        await context.SaveChangesAsync();
+        data.Remove(entity);
+        await data.SaveChangesAsync();
     }
 
     [Fact]
@@ -60,11 +66,11 @@ public class Tests :
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        context.Add(new Employee {Content = ""});
-        context.Add(new Company {Content = ""});
+        await using var data = new SampleDbContext(options);
+        data.Add(new Employee {Content = ""});
+        data.Add(new Company {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
-            () => context.SaveChangesAsync());
+            () => data.SaveChangesAsync());
         await Verify(exception);
     }
 
@@ -86,7 +92,7 @@ public class Tests :
         var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
         #endregion
 
-        return Verify(validators.ToList().Select(x=>x.GetType()));
+        return Verify(validators.ToList().Select(x => x.GetType()));
     }
 
     [Fact]
@@ -94,21 +100,25 @@ public class Tests :
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        context.Add(new Employee {Content = "a"});
-        await context.SaveChangesAsync();
+        await using var data = new SampleDbContext(options);
+        data.Add(new Employee {Content = "a"});
+        await data.SaveChangesAsync();
     }
+
     [Fact]
     public async Task UpdateValid()
     {
         var options = DbContextOptions();
 
-        await using var context = new SampleDbContext(options);
-        var employee = new Employee {Content = "a"};
-        context.Add(employee);
-        await context.SaveChangesAsync();
+        await using var data = new SampleDbContext(options);
+        var employee = new Employee
+        {
+            Content = "a"
+        };
+        data.Add(employee);
+        await data.SaveChangesAsync();
         employee.Content = "b";
-        await context.SaveChangesAsync();
+        await data.SaveChangesAsync();
     }
 
     static DbContextOptions<SampleDbContext> DbContextOptions(
