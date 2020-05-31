@@ -72,7 +72,7 @@ public class Employee
 <sup><a href='/src/Tests/Snippets/DataContext/Employee.cs#L1-L23' title='File snippet `Employee.cs` was extracted from'>snippet source</a> | <a href='#snippet-Employee.cs' title='Navigate to start of snippet `Employee.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
-See [Creating your first validator](https://docs.fluentvalidation.net/en/latest/start.html).
+See [Creating a validator](https://docs.fluentvalidation.net/en/latest/start.html).
 
 
 ### Context

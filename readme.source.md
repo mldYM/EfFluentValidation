@@ -22,7 +22,7 @@ toc
 
 snippet: Employee.cs
 
-See [Creating your first validator](https://docs.fluentvalidation.net/en/latest/start.html).
+See [Creating a validator](https://docs.fluentvalidation.net/en/latest/start.html).
 
 
 ### Context
