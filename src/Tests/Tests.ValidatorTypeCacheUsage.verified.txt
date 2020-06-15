@@ -1,4 +1,4 @@
 [
-  'ValidatorWithContext',
-  'Employee.Validator'
+  'Employee.Validator',
+  'ValidatorWithContext'
 ]

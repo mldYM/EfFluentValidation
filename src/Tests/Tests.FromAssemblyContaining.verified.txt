@@ -1,14 +1,14 @@
 [
   {
-    InterfaceType: 'IValidator<Employee>',
-    ValidatorType: 'ValidatorWithContext'
-  },
-  {
     InterfaceType: 'IValidator<Company>',
     ValidatorType: 'Company.Validator'
   },
   {
     InterfaceType: 'IValidator<Employee>',
     ValidatorType: 'Employee.Validator'
+  },
+  {
+    InterfaceType: 'IValidator<Employee>',
+    ValidatorType: 'ValidatorWithContext'
   }
 ]
