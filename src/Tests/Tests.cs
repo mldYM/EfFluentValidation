@@ -5,10 +5,9 @@ using EfFluentValidation;
 using Microsoft.EntityFrameworkCore;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class Tests :
-    VerifyBase
+[UsesVerify]
+public class Tests
 {
     #region InValid
 
@@ -21,7 +20,7 @@ public class Tests :
         data.Add(new Employee {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
-        await Verify(exception);
+        await Verifier.Verify(exception);
     }
 
     #endregion
@@ -41,7 +40,7 @@ public class Tests :
         entity.Content = "";
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
-        await Verify(exception);
+        await Verifier.Verify(exception);
     }
 
     [Fact]
@@ -71,7 +70,7 @@ public class Tests :
         data.Add(new Company {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
-        await Verify(exception);
+        await Verifier.Verify(exception);
     }
 
     [Fact]
@@ -80,7 +79,7 @@ public class Tests :
         #region FromAssemblyContaining
         var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
         #endregion
-        return Verify(scanResults);
+        return Verifier.Verify(scanResults);
     }
 
     [Fact]
@@ -92,7 +91,7 @@ public class Tests :
         var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
         #endregion
 
-        return Verify(validators.ToList().Select(x => x.GetType()));
+        return Verifier.Verify(validators.ToList().Select(x => x.GetType()));
     }
 
     [Fact]
@@ -127,10 +126,5 @@ public class Tests :
         return new DbContextOptionsBuilder<SampleDbContext>()
             .UseInMemoryDatabase(databaseName)
             .Options;
-    }
-
-    public Tests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

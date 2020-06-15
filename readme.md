@@ -134,7 +134,7 @@ ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembl
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ```
-<sup><a href='/src/Tests/Tests.cs#L80-L82' title='File snippet `fromassemblycontaining` was extracted from'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Navigate to start of snippet `fromassemblycontaining`'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L79-L81' title='File snippet `fromassemblycontaining` was extracted from'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Navigate to start of snippet `fromassemblycontaining`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -203,7 +203,7 @@ var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 var typeCache = new ValidatorTypeCache(scanResults);
 var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
 ```
-<sup><a href='/src/Tests/Tests.cs#L89-L93' title='File snippet `validatortypecacheusage` was extracted from'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Navigate to start of snippet `validatortypecacheusage`'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L88-L92' title='File snippet `validatortypecacheusage` was extracted from'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Navigate to start of snippet `validatortypecacheusage`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
