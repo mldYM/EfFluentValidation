@@ -37,8 +37,9 @@ namespace EfFluentValidation
             {
                 var validationFailuresFailures = new List<TypeValidationFailure>();
                 var entity = entry.Entity;
-                var validationContext = new ValidationContext(entity);
                 var clrType = entry.Metadata.ClrType;
+                var validationContextType = typeof(ValidationContext<>).MakeGenericType(clrType);
+                var validationContext = (IValidationContext)Activator.CreateInstance(validationContextType, entity);
                 var efContext = new EfContext(dbContext, entry);
                 validationContext.RootContextData.Add("EfContext", efContext);
                 foreach (var validator in validatorFactory(clrType))

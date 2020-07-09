@@ -16,7 +16,7 @@ namespace EfFluentValidation
             return context.ParentContext.DbContext<T>();
         }
 
-        public static T DbContext<T>(this ValidationContext context)
+        public static T DbContext<T>(this IValidationContext context)
             where T : DbContext
         {
             Guard.AgainstNull(context, nameof(context));
@@ -29,7 +29,7 @@ namespace EfFluentValidation
             return context.ParentContext.EfContext();
         }
 
-        public static EfContext EfContext(this ValidationContext context)
+        public static EfContext EfContext(this IValidationContext context)
         {
             Guard.AgainstNull(context, nameof(context));
             return (EfContext) context.RootContextData["EfContext"];

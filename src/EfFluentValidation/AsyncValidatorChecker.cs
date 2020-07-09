@@ -4,7 +4,7 @@ using FluentValidation;
 
 static class AsyncValidatorChecker
 {
-    public static bool IsAsync(IValidator validator, ValidationContext context)
+    public static bool IsAsync(IValidator validator, IValidationContext context)
     {
         if (validator is IEnumerable<IValidationRule> rules)
         {
@@ -15,8 +15,8 @@ static class AsyncValidatorChecker
         return false;
     }
 
-    static bool IsAsync(IValidationRule validationRule, ValidationContext context)
+    static bool IsAsync(IValidationRule validationRule, IValidationContext context)
     {
-        return validationRule.Validators.Any(x => x.ShouldValidateAsync(context));
+        return validationRule.Validators.Any(x => x.ShouldValidateAsynchronously(context));
     }
 }

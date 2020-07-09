@@ -28,8 +28,7 @@
             FormattedMessagePlaceholderValues: {
               PropertyName: 'Content',
               PropertyValue: ''
-            },
-            ResourceName: 'NotEmptyValidator'
+            }
           }
         }
       ]
@@ -55,8 +54,7 @@
             FormattedMessagePlaceholderValues: {
               PropertyName: 'Content',
               PropertyValue: ''
-            },
-            ResourceName: 'NotEmptyValidator'
+            }
           }
         }
       ]
