@@ -43,7 +43,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 ### Define Validators
 
 <!-- snippet: Employee.cs -->
-<a id='snippet-Employee.cs'/></a>
+<a id='snippet-Employee.cs'></a>
 ```cs
 using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
@@ -82,7 +82,7 @@ Extra context is passed through FluentValidations [CustomContext](https://docs.f
 Data:
 
 <!-- snippet: EfContext -->
-<a id='snippet-efcontext'/></a>
+<a id='snippet-efcontext'></a>
 ```cs
 public class EfContext
 {
@@ -95,7 +95,7 @@ public class EfContext
 Usage:
 
 <!-- snippet: ValidatorWithContext.cs -->
-<a id='snippet-ValidatorWithContext.cs'/></a>
+<a id='snippet-ValidatorWithContext.cs'></a>
 ```cs
 using System.Diagnostics;
 using EfFluentValidation;
@@ -130,7 +130,7 @@ public class ValidatorWithContext :
 ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembly` to provide convenience methods for scanning Assemblies for validators.
 
 <!-- snippet: FromAssemblyContaining -->
-<a id='snippet-fromassemblycontaining'/></a>
+<a id='snippet-fromassemblycontaining'></a>
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ```
@@ -146,7 +146,7 @@ var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ### TryValidate
 
 <!-- snippet: TryValidateSignature -->
-<a id='snippet-tryvalidatesignature'/></a>
+<a id='snippet-tryvalidatesignature'></a>
 ```cs
 /// <summary>
 /// Validates a <see cref="DbContext"/> an relies on the caller to handle those results.
@@ -169,7 +169,7 @@ public static async Task<(bool isValid, IReadOnlyList<EntityValidationFailure> f
 ### Validate
 
 <!-- snippet: ValidateSignature -->
-<a id='snippet-validatesignature'/></a>
+<a id='snippet-validatesignature'></a>
 ```cs
 /// <summary>
 /// Validates a <see cref="DbContext"/> and throws a <see cref="MessageValidationException"/>
@@ -197,7 +197,7 @@ public static async Task Validate(
 It can only be used against validators that have a public default constructor (i.e. no parameters).
 
 <!-- snippet: ValidatorTypeCacheUsage -->
-<a id='snippet-validatortypecacheusage'/></a>
+<a id='snippet-validatortypecacheusage'></a>
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 var typeCache = new ValidatorTypeCache(scanResults);
@@ -223,7 +223,7 @@ It assumes that all validators for a DbContext exist in the same assembly as the
 Implementation:
 
 <!-- snippet: DefaultValidatorFactory.cs -->
-<a id='snippet-DefaultValidatorFactory.cs'/></a>
+<a id='snippet-DefaultValidatorFactory.cs'></a>
 ```cs
 using System;
 using System.Collections.Generic;
@@ -270,7 +270,7 @@ There are several approaches to adding validation to a DbContext
 `ValidatingDbContext` provides a base class with validation already implemented in `SaveChnages` and `SaveChangesAsync`
 
 <!-- snippet: SampleDbContext.cs -->
-<a id='snippet-SampleDbContext.cs'/></a>
+<a id='snippet-SampleDbContext.cs'></a>
 ```cs
 using EfFluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -307,7 +307,7 @@ public class SampleDbContext :
 In some scenarios it may not be possible to use a custom base class, I thise case `SaveChnages` and `SaveChangesAsync` can be overridden.
 
 <!-- snippet: CustomDbContext -->
-<a id='snippet-customdbcontext'/></a>
+<a id='snippet-customdbcontext'></a>
 ```cs
 public class SampleDbContext :
     DbContext
