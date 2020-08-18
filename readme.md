@@ -29,7 +29,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [DbContext](#dbcontext)
     * [ValidatingDbContext](#validatingdbcontext)
     * [DbContext as a base](#dbcontext-as-a-base)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## NuGet package
@@ -70,7 +70,7 @@ public class Employee
 }
 ```
 <sup><a href='/src/Tests/Snippets/DataContext/Employee.cs#L1-L23' title='File snippet `Employee.cs` was extracted from'>snippet source</a> | <a href='#snippet-Employee.cs' title='Navigate to start of snippet `Employee.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 See [Creating a validator](https://docs.fluentvalidation.net/en/latest/start.html).
 
@@ -90,7 +90,7 @@ public class EfContext
     public EntityEntry EntityEntry { get; }
 ```
 <sup><a href='/src/EfFluentValidation/Model/EfContext.cs#L6-L13' title='File snippet `efcontext` was extracted from'>snippet source</a> | <a href='#snippet-efcontext' title='Navigate to start of snippet `efcontext`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Usage:
 
@@ -122,7 +122,7 @@ public class ValidatorWithContext :
 }
 ```
 <sup><a href='/src/Tests/Snippets/DataContext/ValidatorWithContext.cs#L1-L23' title='File snippet `ValidatorWithContext.cs` was extracted from'>snippet source</a> | <a href='#snippet-ValidatorWithContext.cs' title='Navigate to start of snippet `ValidatorWithContext.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### ValidationFinder
@@ -135,7 +135,7 @@ ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembl
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ```
 <sup><a href='/src/Tests/Tests.cs#L79-L81' title='File snippet `fromassemblycontaining` was extracted from'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Navigate to start of snippet `fromassemblycontaining`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## DbContextValidator
@@ -163,7 +163,7 @@ public static async Task<(bool isValid, IReadOnlyList<EntityValidationFailure> f
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
 <sup><a href='/src/EfFluentValidation/DbContextValidator.cs#L13-L29' title='File snippet `tryvalidatesignature` was extracted from'>snippet source</a> | <a href='#snippet-tryvalidatesignature' title='Navigate to start of snippet `tryvalidatesignature`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Validate
@@ -187,7 +187,7 @@ public static async Task Validate(
         Func<Type, IEnumerable<IValidator>> validatorFactory)
 ```
 <sup><a href='/src/EfFluentValidation/DbContextValidator.cs#L71-L88' title='File snippet `validatesignature` was extracted from'>snippet source</a> | <a href='#snippet-validatesignature' title='Navigate to start of snippet `validatesignature`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### ValidatorTypeCache
@@ -204,7 +204,7 @@ var typeCache = new ValidatorTypeCache(scanResults);
 var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
 ```
 <sup><a href='/src/Tests/Tests.cs#L88-L92' title='File snippet `validatortypecacheusage` was extracted from'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Navigate to start of snippet `validatortypecacheusage`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### ValidatorFactory
@@ -257,7 +257,7 @@ namespace EfFluentValidation
 }
 ```
 <sup><a href='/src/EfFluentValidation/DefaultValidatorFactory.cs#L1-L30' title='File snippet `DefaultValidatorFactory.cs` was extracted from'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Navigate to start of snippet `DefaultValidatorFactory.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## DbContext
@@ -299,7 +299,7 @@ public class SampleDbContext :
 }
 ```
 <sup><a href='/src/Tests/Snippets/DataContext/SampleDbContext.cs#L1-L25' title='File snippet `SampleDbContext.cs` was extracted from'>snippet source</a> | <a href='#snippet-SampleDbContext.cs' title='Navigate to start of snippet `SampleDbContext.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### DbContext as a base
@@ -351,7 +351,7 @@ public class SampleDbContext :
 }
 ```
 <sup><a href='/src/Tests/Snippets/DataContext/CustomDbContext.cs#L11-L54' title='File snippet `customdbcontext` was extracted from'>snippet source</a> | <a href='#snippet-customdbcontext' title='Navigate to start of snippet `customdbcontext`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Security contact information
