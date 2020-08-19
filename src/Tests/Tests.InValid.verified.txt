@@ -1,9 +1,9 @@
 {
-  Message: 'Validation failed
+  Message: "Validation failed
   * Employee
-   * Content: \'Content\' must not be empty. (Validator: Employee+Validator)
+   * Content: 'Content' must not be empty. (Validator: Employee+Validator)
 
-',
+",
   Errors: [
     {
       Entity: {
@@ -15,7 +15,7 @@
           ValidatorType: 'Employee.Validator',
           Failure: {
             PropertyName: 'Content',
-            ErrorMessage: '\'Content\' must not be empty.',
+            ErrorMessage: "'Content' must not be empty.",
             AttemptedValue: '',
             ErrorCode: 'NotEmptyValidator',
             FormattedMessagePlaceholderValues: {
