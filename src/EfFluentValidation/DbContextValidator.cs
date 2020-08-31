@@ -41,19 +41,9 @@ namespace EfFluentValidation
                 var validationContext = BuildValidationContext(dbContext, entry);
                 foreach (var validator in validatorFactory(clrType))
                 {
-                    IList<ValidationFailure> errors;
-                    if (AsyncValidatorChecker.IsAsync(validator, validationContext))
-                    {
-                        var result = await validator.ValidateAsync(validationContext);
-                        errors = result.Errors;
-                    }
-                    else
-                    {
-                        var result = validator.Validate(validationContext);
-                        errors = result.Errors;
-                    }
+                    var result = await validator.ValidateEx(validationContext);
 
-                    validationFailures.AddRange(errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
+                    validationFailures.AddRange(result.Errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
                 }
 
                 if (validationFailures.Any())
