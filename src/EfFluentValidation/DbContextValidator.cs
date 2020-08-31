@@ -38,9 +38,7 @@ namespace EfFluentValidation
             {
                 var validationFailures = new List<TypeValidationFailure>();
                 var clrType = entry.Metadata.ClrType;
-                var validationContext = BuildValidationContext(entry);
-                var efContext = new EfContext(dbContext, entry);
-                validationContext.RootContextData.Add("EfContext", efContext);
+                var validationContext = BuildValidationContext(dbContext, entry);
                 foreach (var validator in validatorFactory(clrType))
                 {
                     IList<ValidationFailure> errors;
@@ -67,11 +65,13 @@ namespace EfFluentValidation
             return (!entityFailures.Any(), entityFailures);
         }
 
-        static IValidationContext BuildValidationContext(EntityEntry entry)
+        static IValidationContext BuildValidationContext(DbContext dbContext, EntityEntry entry)
         {
             //TODO: cache
             var validationContextType = typeof(ValidationContext<>).MakeGenericType(entry.Metadata.ClrType);
-            return (IValidationContext) Activator.CreateInstance(validationContextType, entry.Entity);
+            var validationContext = (IValidationContext) Activator.CreateInstance(validationContextType, entry.Entity);
+            validationContext.RootContextData.Add("EfContext", new EfContext(dbContext, entry));
+            return validationContext;
         }
 
         #region ValidateSignature
