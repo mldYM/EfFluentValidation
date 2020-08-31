@@ -32,8 +32,8 @@ namespace EfFluentValidation
         {
             Guard.AgainstNull(dbContext, nameof(dbContext));
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
-            var entries = dbContext.ModifiedEntries();
             var entityFailures = new List<EntityValidationFailure>();
+            var entries = dbContext.ModifiedEntries();
             foreach (var entry in entries)
             {
                 var validationFailures = new List<TypeValidationFailure>();
@@ -42,13 +42,12 @@ namespace EfFluentValidation
                 foreach (var validator in validatorFactory(clrType))
                 {
                     var result = await validator.ValidateEx(validationContext);
-
                     validationFailures.AddRange(result.Errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
                 }
 
                 if (validationFailures.Any())
                 {
-                    entityFailures.Add(new EntityValidationFailure(entry.Entity, clrType, validationFailures));
+                    entityFailures.Add(new EntityValidationFailure(entry.Entity, entry.Metadata.ClrType, validationFailures));
                 }
             }
 
