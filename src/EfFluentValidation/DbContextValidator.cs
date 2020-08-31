@@ -35,7 +35,7 @@ namespace EfFluentValidation
             var entityFailures = new List<EntityValidationFailure>();
             foreach (var entry in entries)
             {
-                var validationFailuresFailures = new List<TypeValidationFailure>();
+                var validationFailures = new List<TypeValidationFailure>();
                 var entity = entry.Entity;
                 var clrType = entry.Metadata.ClrType;
                 var validationContextType = typeof(ValidationContext<>).MakeGenericType(clrType);
@@ -56,12 +56,12 @@ namespace EfFluentValidation
                         errors = result.Errors;
                     }
 
-                    validationFailuresFailures.AddRange(errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
+                    validationFailures.AddRange(errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
                 }
 
-                if (validationFailuresFailures.Any())
+                if (validationFailures.Any())
                 {
-                    entityFailures.Add(new EntityValidationFailure(entity, clrType, validationFailuresFailures));
+                    entityFailures.Add(new EntityValidationFailure(entity, clrType, validationFailures));
                 }
             }
 
