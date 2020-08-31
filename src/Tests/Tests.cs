@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EfFluentValidation;
@@ -103,6 +104,31 @@ public class Tests
         data.Add(new Employee {Content = "a"});
         await data.SaveChangesAsync();
     }
+
+    [Fact]
+    public async Task UpdateSingleProp()
+    {
+        var options = DbContextOptions();
+
+        await using var data1 = new SampleDbContext(options);
+        var employee = new Employee
+        {
+            Content = "a"
+        };
+        data1.Add(employee);
+        await data1.SaveChangesAsync();
+
+        await using var data2 = new SampleDbContext(options);
+        var update = new Employee
+        {
+            Id = employee.Id
+        };
+        var entry = data2.Employees.Attach(update);
+        update.Age = 10;
+        entry.Property(x => x.Age).IsModified = true;
+        await data2.SaveChangesAsync();
+    }
+
 
     [Fact]
     public async Task UpdateValid()

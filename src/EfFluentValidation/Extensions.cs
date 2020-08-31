@@ -12,8 +12,15 @@ static class Extensions
         tracker.DetectChanges();
         return tracker
             .Entries()
-            .Where(x => x.State == EntityState.Added ||
-                        x.State == EntityState.Modified);
+            .Where(x => x.State == EntityState.Modified);
+    }
+    public static IEnumerable<EntityEntry> AddedEntries(this DbContext dbContext)
+    {
+        var tracker = dbContext.ChangeTracker;
+        tracker.DetectChanges();
+        return tracker
+            .Entries()
+            .Where(x => x.State == EntityState.Added);
     }
 
     public static async Task<List<T>> ToAsyncList<T>(this IAsyncEnumerable<T> enumerable)

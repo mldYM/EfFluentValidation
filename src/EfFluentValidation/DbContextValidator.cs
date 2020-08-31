@@ -32,9 +32,18 @@ namespace EfFluentValidation
         {
             Guard.AgainstNull(dbContext, nameof(dbContext));
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
-            var entityFailures = new List<EntityValidationFailure>();
-            var entries = dbContext.ModifiedEntries();
-            foreach (var entry in entries)
+            var entityFailures = await InnVerify(dbContext, validatorFactory).ToAsyncList();
+            return (!entityFailures.Any(), entityFailures);
+        }
+
+        static async IAsyncEnumerable<EntityValidationFailure> InnVerify(DbContext dbContext, Func<Type, IEnumerable<IValidator>> validatorFactory)
+        {
+            void AddFailures(List<TypeValidationFailure> failures, IEnumerable<ValidationFailure> errors, IValidator validator)
+            {
+                failures.AddRange(errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
+            }
+
+            foreach (var entry in dbContext.AddedEntries())
             {
                 var validationFailures = new List<TypeValidationFailure>();
                 var clrType = entry.Metadata.ClrType;
@@ -42,16 +51,34 @@ namespace EfFluentValidation
                 foreach (var validator in validatorFactory(clrType))
                 {
                     var result = await validator.ValidateEx(validationContext);
-                    validationFailures.AddRange(result.Errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
+                    AddFailures(validationFailures, result.Errors, validator);
                 }
 
                 if (validationFailures.Any())
                 {
-                    entityFailures.Add(new EntityValidationFailure(entry.Entity, entry.Metadata.ClrType, validationFailures));
+                    yield return new EntityValidationFailure(entry.Entity, clrType, validationFailures);
                 }
             }
 
-            return (!entityFailures.Any(), entityFailures);
+            foreach (var entry in dbContext.ModifiedEntries())
+            {
+                var validationFailures = new List<TypeValidationFailure>();
+                var clrType = entry.Metadata.ClrType;
+                var validationContext = BuildValidationContext(dbContext, entry);
+                var changedProperties = entry.ChangedProperties().ToList();
+                foreach (var validator in validatorFactory(clrType))
+                {
+                    var result = await validator.ValidateEx(validationContext);
+                    var errors = result.Errors.Where(x => changedProperties.Contains(x.PropertyName));
+
+                    AddFailures(validationFailures, errors, validator);
+                }
+
+                if (validationFailures.Any())
+                {
+                    yield return new EntityValidationFailure(entry.Entity, clrType, validationFailures);
+                }
+            }
         }
 
         static IValidationContext BuildValidationContext(DbContext dbContext, EntityEntry entry)
