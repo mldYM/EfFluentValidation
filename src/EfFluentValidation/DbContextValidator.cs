@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EfFluentValidation
 {
@@ -36,10 +37,8 @@ namespace EfFluentValidation
             foreach (var entry in entries)
             {
                 var validationFailures = new List<TypeValidationFailure>();
-                var entity = entry.Entity;
                 var clrType = entry.Metadata.ClrType;
-                var validationContextType = typeof(ValidationContext<>).MakeGenericType(clrType);
-                var validationContext = (IValidationContext)Activator.CreateInstance(validationContextType, entity);
+                var validationContext = BuildValidationContext(entry);
                 var efContext = new EfContext(dbContext, entry);
                 validationContext.RootContextData.Add("EfContext", efContext);
                 foreach (var validator in validatorFactory(clrType))
@@ -61,11 +60,18 @@ namespace EfFluentValidation
 
                 if (validationFailures.Any())
                 {
-                    entityFailures.Add(new EntityValidationFailure(entity, clrType, validationFailures));
+                    entityFailures.Add(new EntityValidationFailure(entry.Entity, clrType, validationFailures));
                 }
             }
 
             return (!entityFailures.Any(), entityFailures);
+        }
+
+        static IValidationContext BuildValidationContext(EntityEntry entry)
+        {
+            //TODO: cache
+            var validationContextType = typeof(ValidationContext<>).MakeGenericType(entry.Metadata.ClrType);
+            return (IValidationContext) Activator.CreateInstance(validationContextType, entry.Entity);
         }
 
         #region ValidateSignature
