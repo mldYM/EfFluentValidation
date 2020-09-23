@@ -1,4 +1,5 @@
 {
+  Type: 'EntityValidationException',
   Message: "Validation failed
   * Employee
    * Content: 'Content' must not be empty. (Validator: Employee+Validator)
@@ -59,7 +60,5 @@
         }
       ]
     }
-  ],
-  Data: {},
-  Source: 'EfFluentValidation'
+  ]
 }
