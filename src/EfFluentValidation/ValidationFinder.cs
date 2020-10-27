@@ -17,7 +17,8 @@ namespace EfFluentValidation
         }
 
         public static IEnumerable<Result> FromAssemblyContaining(
-            Type type, bool throwForNonPublicValidators = true,
+            Type type,
+            bool throwForNonPublicValidators = true,
             bool throwForNoValidatorsFound = true)
         {
             Guard.AgainstNull(type, nameof(type));
