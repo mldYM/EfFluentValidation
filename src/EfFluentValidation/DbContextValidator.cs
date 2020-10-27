@@ -38,7 +38,7 @@ namespace EfFluentValidation
 
         static async IAsyncEnumerable<EntityValidationFailure> InnVerify(DbContext dbContext, Func<Type, IEnumerable<IValidator>> validatorFactory)
         {
-            void AddFailures(List<TypeValidationFailure> failures, IEnumerable<ValidationFailure> errors, IValidator validator)
+            static void AddFailures(List<TypeValidationFailure> failures, IEnumerable<ValidationFailure> errors, IValidator validator)
             {
                 failures.AddRange(errors.Select(failure => new TypeValidationFailure(validator.GetType(), failure)));
             }
