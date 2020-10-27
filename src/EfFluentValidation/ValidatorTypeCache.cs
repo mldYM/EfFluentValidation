@@ -16,7 +16,8 @@ namespace EfFluentValidation
             {
                 typeCache[result.Key] = result
                     .Select(x => Activator.CreateInstance(x.ValidatorType))
-                    .Cast<IValidator>();
+                    .Cast<IValidator>()
+                    .ToList();
             }
         }
 
