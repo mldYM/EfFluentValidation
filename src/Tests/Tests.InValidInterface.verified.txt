@@ -1,0 +1,34 @@
+{
+  Type: 'EntityValidationException',
+  Message: "Validation failed
+  * Employee
+   * Id: 'Id' must not be equal to '-1'. (Validator: IProvideId+Validator)
+
+",
+  Errors: [
+    {
+      Entity: {
+        Id: -1,
+        Content: 'aaa'
+      },
+      EntityType: 'Employee',
+      Failures: [
+        {
+          ValidatorType: 'IProvideId.Validator',
+          Failure: {
+            PropertyName: 'Id',
+            ErrorMessage: "'Id' must not be equal to '-1'.",
+            AttemptedValue: -1,
+            ErrorCode: 'NotEqualValidator',
+            FormattedMessagePlaceholderValues: {
+              ComparisonValue: -1,
+              ComparisonProperty: '',
+              PropertyName: 'Id',
+              PropertyValue: -1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

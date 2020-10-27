@@ -1,4 +1,5 @@
 [
   'Employee.Validator',
-  'ValidatorWithContext'
+  'ValidatorWithContext',
+  'IProvideId.Validator'
 ]

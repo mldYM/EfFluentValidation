@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 
-public class Employee
+public class Employee :
+    IProvideId
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int Id { get; set; }

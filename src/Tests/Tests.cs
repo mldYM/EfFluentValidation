@@ -9,6 +9,22 @@ using Xunit;
 [UsesVerify]
 public class Tests
 {
+    [Fact]
+    public async Task InValidInterface()
+    {
+        var options = DbContextOptions();
+
+        await using var data = new SampleDbContext(options);
+        data.Add(new Employee
+        {
+            Id = -1,
+            Content = "aaa"
+        });
+        var exception = await Assert.ThrowsAsync<EntityValidationException>(
+            () => data.SaveChangesAsync());
+        await Verifier.Verify(exception);
+    }
+
     #region InValid
 
     [Fact]
@@ -88,7 +104,7 @@ public class Tests
         #region ValidatorTypeCacheUsage
         var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
         var typeCache = new ValidatorTypeCache(scanResults);
-        var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
+        var validators = typeCache.GetValidators(typeof(Employee));
         #endregion
 
         return Verifier.Verify(validators.ToList().Select(x => x.GetType()));

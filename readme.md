@@ -48,7 +48,8 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 
-public class Employee
+public class Employee :
+    IProvideId
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int Id { get; set; }
@@ -69,7 +70,7 @@ public class Employee
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/DataContext/Employee.cs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-Employee.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/DataContext/Employee.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-Employee.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 See [Creating a validator](https://docs.fluentvalidation.net/en/latest/start.html).
@@ -134,7 +135,7 @@ ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembl
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ```
-<sup><a href='/src/Tests/Tests.cs#L79-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L95-L97' title='Snippet source file'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -201,9 +202,9 @@ It can only be used against validators that have a public default constructor (i
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 var typeCache = new ValidatorTypeCache(scanResults);
-var validatorsFound = typeCache.TryGetValidators(typeof(Employee), out var validators);
+var validators = typeCache.GetValidators(typeof(Employee));
 ```
-<sup><a href='/src/Tests/Tests.cs#L88-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L104-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -227,7 +228,6 @@ Implementation:
 ```cs
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -243,20 +243,12 @@ namespace EfFluentValidation
             var validators = ValidationFinder.FromAssemblyContaining<T>();
 
             var typeCache = new ValidatorTypeCache(validators);
-            Factory = type =>
-            {
-                if (typeCache.TryGetValidators(type, out var enumerable))
-                {
-                    return enumerable;
-                }
-
-                return Enumerable.Empty<IValidator>();
-            };
+            Factory = type => typeCache.GetValidators(type);
         }
     }
 }
 ```
-<sup><a href='/src/EfFluentValidation/DefaultValidatorFactory.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EfFluentValidation/DefaultValidatorFactory.cs#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultValidatorFactory.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

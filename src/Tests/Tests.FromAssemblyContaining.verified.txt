@@ -8,6 +8,10 @@
     ValidatorType: 'Employee.Validator'
   },
   {
+    InterfaceType: 'IValidator<IProvideId>',
+    ValidatorType: 'IProvideId.Validator'
+  },
+  {
     InterfaceType: 'IValidator<Employee>',
     ValidatorType: 'ValidatorWithContext'
   }

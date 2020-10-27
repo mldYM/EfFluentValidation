@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
@@ -8,22 +9,47 @@ namespace EfFluentValidation
 {
     public class ValidatorTypeCache
     {
-        Dictionary<Type, IEnumerable<IValidator>> typeCache = new Dictionary<Type, IEnumerable<IValidator>>();
+        ConcurrentDictionary<Type, IEnumerable<IValidator>> entityMapCache = new ConcurrentDictionary<Type, IEnumerable<IValidator>>();
+        Dictionary<Type, List<IValidator>> instanceCache = new Dictionary<Type, List<IValidator>>();
 
         public ValidatorTypeCache(IEnumerable<Result> scanResults)
         {
             foreach (var result in scanResults.GroupBy(x => x.InterfaceType.GenericTypeArguments.Single()))
             {
-                typeCache[result.Key] = result
+                instanceCache[result.Key] = result
                     .Select(x => Activator.CreateInstance(x.ValidatorType))
                     .Cast<IValidator>()
                     .ToList();
             }
         }
 
-        public bool TryGetValidators(Type entityType, out IEnumerable<IValidator> validators)
+        public IEnumerable<IValidator> GetValidators(Type entityType)
         {
-            return typeCache.TryGetValue(entityType, out validators);
+            return entityMapCache.GetOrAdd(entityType, x =>
+            {
+                var list = FindValidatorsForEntity(x);
+                if (list.Any())
+                {
+                    return list;
+                }
+
+                return Enumerable.Empty<IValidator>();
+            });
+        }
+
+        List<IValidator> FindValidatorsForEntity(Type entityType)
+        {
+            var list = new List<IValidator>();
+            foreach (var typeToValidators in instanceCache)
+            {
+                var targetType = typeToValidators.Key;
+                var validators = typeToValidators.Value;
+                if (targetType.IsAssignableFrom(entityType))
+                {
+                    list.AddRange(validators);
+                }
+            }
+            return list;
         }
     }
 }
