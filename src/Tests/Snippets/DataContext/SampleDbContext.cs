@@ -1,4 +1,7 @@
-﻿using EfFluentValidation;
+﻿using System;
+using System.Collections.Generic;
+using EfFluentValidation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 public class SampleDbContext :
@@ -7,10 +10,10 @@ public class SampleDbContext :
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
 
-    public SampleDbContext(DbContextOptions options) :
-        base(
-            options,
-            DefaultValidatorFactory<SampleDbContext>.Factory)
+    public SampleDbContext(
+        DbContextOptions options,
+        Func<Type, IEnumerable<IValidator>> validatorFactory) :
+        base(options, validatorFactory)
     {
     }
 

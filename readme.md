@@ -135,7 +135,7 @@ ValidationFinder wraps `FluentValidation.AssemblyScanner.FindValidatorsInAssembl
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 ```
-<sup><a href='/src/Tests/Tests.cs#L95-L97' title='Snippet source file'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L101-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-fromassemblycontaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -204,7 +204,7 @@ var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
 var typeCache = new ValidatorTypeCache(scanResults);
 var validators = typeCache.GetValidators(typeof(Employee));
 ```
-<sup><a href='/src/Tests/Tests.cs#L104-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L113-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -264,7 +264,10 @@ There are several approaches to adding validation to a DbContext
 <!-- snippet: SampleDbContext.cs -->
 <a id='snippet-SampleDbContext.cs'></a>
 ```cs
+using System;
+using System.Collections.Generic;
 using EfFluentValidation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 public class SampleDbContext :
@@ -273,10 +276,10 @@ public class SampleDbContext :
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
 
-    public SampleDbContext(DbContextOptions options) :
-        base(
-            options,
-            DefaultValidatorFactory<SampleDbContext>.Factory)
+    public SampleDbContext(
+        DbContextOptions options,
+        Func<Type, IEnumerable<IValidator>> validatorFactory) :
+        base(options, validatorFactory)
     {
     }
 
@@ -290,7 +293,7 @@ public class SampleDbContext :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/DataContext/SampleDbContext.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleDbContext.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/DataContext/SampleDbContext.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleDbContext.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -304,18 +307,16 @@ In some scenarios it may not be possible to use a custom base class, I thise cas
 public class SampleDbContext :
     DbContext
 {
+    Func<Type, IEnumerable<IValidator>> validatorFactory;
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
-    private static Func<Type, IEnumerable<IValidator>> validatorFactory;
 
-    static SampleDbContext()
-    {
-        validatorFactory = DefaultValidatorFactory<SampleDbContext>.Factory;
-    }
-
-    public SampleDbContext(DbContextOptions options) :
+    public SampleDbContext(
+        DbContextOptions options,
+        Func<Type, IEnumerable<IValidator>> validatorFactory) :
         base(options)
     {
+        this.validatorFactory = validatorFactory;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -342,7 +343,7 @@ public class SampleDbContext :
     }
 }
 ```
-<sup><a href='/src/Tests/Snippets/DataContext/CustomDbContext.cs#L11-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-customdbcontext' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/DataContext/CustomDbContext.cs#L11-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-customdbcontext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

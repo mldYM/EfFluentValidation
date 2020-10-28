@@ -13,18 +13,16 @@ namespace Custom
     public class SampleDbContext :
         DbContext
     {
+        Func<Type, IEnumerable<IValidator>> validatorFactory;
         public DbSet<Employee> Employees { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
-        private static Func<Type, IEnumerable<IValidator>> validatorFactory;
 
-        static SampleDbContext()
-        {
-            validatorFactory = DefaultValidatorFactory<SampleDbContext>.Factory;
-        }
-
-        public SampleDbContext(DbContextOptions options) :
+        public SampleDbContext(
+            DbContextOptions options,
+            Func<Type, IEnumerable<IValidator>> validatorFactory) :
             base(options)
         {
+            this.validatorFactory = validatorFactory;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

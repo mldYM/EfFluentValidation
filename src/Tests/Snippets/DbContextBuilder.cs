@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using EfLocalDb;
+using FluentValidation;
 
 // LocalDb is used to make the sample simpler.
 // Replace with a real DbContext
@@ -9,7 +11,9 @@ public static class DbContextBuilder
     {
         sqlInstance = new SqlInstance<SampleDbContext>(
             buildTemplate: CreateDb,
-            constructInstance: builder => new SampleDbContext(builder.Options));
+            constructInstance: builder => new SampleDbContext(
+                builder.Options,
+                _ => Enumerable.Empty<IValidator>()));
     }
 
     static SqlInstance<SampleDbContext> sqlInstance;

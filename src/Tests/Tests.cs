@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EfFluentValidation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using VerifyXunit;
 using Xunit;
@@ -9,17 +12,20 @@ using Xunit;
 [UsesVerify]
 public class Tests
 {
+    static Func<Type, IEnumerable<IValidator>> factory = DefaultValidatorFactory<SampleDbContext>.Factory;
+
     [Fact]
     public async Task InValidInterface()
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
-        data.Add(new Employee
-        {
-            Id = -1,
-            Content = "aaa"
-        });
+        await using var data = new SampleDbContext(options, factory);
+        data.Add(
+            new Employee
+            {
+                Id = -1,
+                Content = "aaa"
+            });
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
         await Verifier.Verify(exception);
@@ -32,7 +38,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         data.Add(new Employee {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
@@ -46,7 +52,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         var entity = new Employee
         {
             Content = "Foo"
@@ -64,7 +70,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         var entity = new Employee
         {
             Content = "Foo"
@@ -81,7 +87,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         data.Add(new Employee {Content = ""});
         data.Add(new Company {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
@@ -93,8 +99,11 @@ public class Tests
     public Task FromAssemblyContaining()
     {
         #region FromAssemblyContaining
+
         var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
+
         #endregion
+
         return Verifier.Verify(scanResults);
     }
 
@@ -102,9 +111,11 @@ public class Tests
     public Task ValidatorTypeCacheUsage()
     {
         #region ValidatorTypeCacheUsage
+
         var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
         var typeCache = new ValidatorTypeCache(scanResults);
         var validators = typeCache.GetValidators(typeof(Employee));
+
         #endregion
 
         return Verifier.Verify(validators.ToList().Select(x => x.GetType()));
@@ -115,7 +126,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         data.Add(new Employee {Content = "a"});
         await data.SaveChangesAsync();
     }
@@ -125,7 +136,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data1 = new SampleDbContext(options);
+        await using var data1 = new SampleDbContext(options, factory);
         var employee = new Employee
         {
             Content = "a"
@@ -133,7 +144,7 @@ public class Tests
         data1.Add(employee);
         await data1.SaveChangesAsync();
 
-        await using var data2 = new SampleDbContext(options);
+        await using var data2 = new SampleDbContext(options, factory);
         var update = new Employee
         {
             Id = employee.Id
@@ -144,13 +155,12 @@ public class Tests
         await data2.SaveChangesAsync();
     }
 
-
     [Fact]
     public async Task UpdateValid()
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options);
+        await using var data = new SampleDbContext(options, factory);
         var employee = new Employee
         {
             Content = "a"

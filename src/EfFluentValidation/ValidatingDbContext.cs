@@ -12,13 +12,16 @@ namespace EfFluentValidation
     {
         Func<Type, IEnumerable<IValidator>> validatorFactory;
 
-        protected ValidatingDbContext(Func<Type, IEnumerable<IValidator>> validatorFactory)
+        protected ValidatingDbContext(
+            Func<Type, IEnumerable<IValidator>> validatorFactory)
         {
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
             this.validatorFactory = validatorFactory;
         }
 
-        protected ValidatingDbContext(DbContextOptions options, Func<Type, IEnumerable<IValidator>> validatorFactory) :
+        protected ValidatingDbContext(
+            DbContextOptions options,
+            Func<Type, IEnumerable<IValidator>> validatorFactory) :
             base(options)
         {
             Guard.AgainstNull(validatorFactory, nameof(validatorFactory));
