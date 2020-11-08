@@ -1,18 +1,18 @@
 [
   {
-    InterfaceType: 'IValidator<Company>',
-    ValidatorType: 'Company.Validator'
+    InterfaceType: IValidator<Employee>,
+    ValidatorType: ValidatorWithContext
   },
   {
-    InterfaceType: 'IValidator<Employee>',
-    ValidatorType: 'Employee.Validator'
+    InterfaceType: IValidator<Company>,
+    ValidatorType: Company.Validator
   },
   {
-    InterfaceType: 'IValidator<IProvideId>',
-    ValidatorType: 'IProvideId.Validator'
+    InterfaceType: IValidator<Employee>,
+    ValidatorType: Employee.Validator
   },
   {
-    InterfaceType: 'IValidator<Employee>',
-    ValidatorType: 'ValidatorWithContext'
+    InterfaceType: IValidator<IProvideId>,
+    ValidatorType: IProvideId.Validator
   }
 ]
