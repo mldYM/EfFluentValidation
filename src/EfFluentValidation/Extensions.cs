@@ -14,6 +14,7 @@ static class Extensions
             .Entries()
             .Where(x => x.State == EntityState.Modified);
     }
+
     public static IEnumerable<EntityEntry> AddedEntries(this DbContext dbContext)
     {
         var tracker = dbContext.ChangeTracker;
@@ -58,6 +59,6 @@ static class Extensions
 
                 return !original.Equals(current);
             })
-            .Select(x=>x.Metadata.Name);
+            .Select(x => x.Metadata.Name);
     }
 }

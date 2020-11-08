@@ -1,34 +1,35 @@
 {
-  Type: 'EntityValidationException',
-  Message: "Validation failed
+  Type: EntityValidationException,
+  Message: 
+Validation failed
   * Employee
    * Content: 'Content' must not be empty. (Validator: Employee+Validator)
 
   * Company
    * Content: 'Content' must not be empty. (Validator: Company+Validator)
 
-",
+,
   Errors: [
     {
       Entity: {
         Company: {
-          Content: '',
+          Content: ,
           Employees: []
         },
-        Content: ''
+        Content: 
       },
-      EntityType: 'Employee',
+      EntityType: Employee,
       Failures: [
         {
-          ValidatorType: 'Employee.Validator',
+          ValidatorType: Employee.Validator,
           Failure: {
-            PropertyName: 'Content',
-            ErrorMessage: "'Content' must not be empty.",
-            AttemptedValue: '',
-            ErrorCode: 'NotEmptyValidator',
+            PropertyName: Content,
+            ErrorMessage: 'Content' must not be empty.,
+            AttemptedValue: ,
+            ErrorCode: NotEmptyValidator,
             FormattedMessagePlaceholderValues: {
-              PropertyName: 'Content',
-              PropertyValue: ''
+              PropertyName: Content,
+              PropertyValue: 
             }
           }
         }
@@ -36,25 +37,25 @@
     },
     {
       Entity: {
-        Content: '',
+        Content: ,
         Employees: [
           {
-            Content: ''
+            Content: 
           }
         ]
       },
-      EntityType: 'Company',
+      EntityType: Company,
       Failures: [
         {
-          ValidatorType: 'Company.Validator',
+          ValidatorType: Company.Validator,
           Failure: {
-            PropertyName: 'Content',
-            ErrorMessage: "'Content' must not be empty.",
-            AttemptedValue: '',
-            ErrorCode: 'NotEmptyValidator',
+            PropertyName: Content,
+            ErrorMessage: 'Content' must not be empty.,
+            AttemptedValue: ,
+            ErrorCode: NotEmptyValidator,
             FormattedMessagePlaceholderValues: {
-              PropertyName: 'Content',
-              PropertyValue: ''
+              PropertyName: Content,
+              PropertyValue: 
             }
           }
         }

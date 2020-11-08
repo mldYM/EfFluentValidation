@@ -1,27 +1,28 @@
 {
-  Type: 'EntityValidationException',
-  Message: "Validation failed
+  Type: EntityValidationException,
+  Message: 
+Validation failed
   * Employee
    * Content: 'Content' must not be empty. (Validator: Employee+Validator)
 
-",
+,
   Errors: [
     {
       Entity: {
-        Content: ''
+        Content: 
       },
-      EntityType: 'Employee',
+      EntityType: Employee,
       Failures: [
         {
-          ValidatorType: 'Employee.Validator',
+          ValidatorType: Employee.Validator,
           Failure: {
-            PropertyName: 'Content',
-            ErrorMessage: "'Content' must not be empty.",
-            AttemptedValue: '',
-            ErrorCode: 'NotEmptyValidator',
+            PropertyName: Content,
+            ErrorMessage: 'Content' must not be empty.,
+            AttemptedValue: ,
+            ErrorCode: NotEmptyValidator,
             FormattedMessagePlaceholderValues: {
-              PropertyName: 'Content',
-              PropertyValue: ''
+              PropertyName: Content,
+              PropertyValue: 
             }
           }
         }
