@@ -26,7 +26,7 @@ static class Extensions
 
     public static async Task<List<T>> ToAsyncList<T>(this IAsyncEnumerable<T> enumerable)
     {
-        var list = new List<T>();
+        List<T> list = new();
         await foreach (var item in enumerable)
         {
             list.Add(item);

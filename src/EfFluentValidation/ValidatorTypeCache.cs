@@ -39,7 +39,7 @@ namespace EfFluentValidation
 
         List<IValidator> FindValidatorsForEntity(Type entityType)
         {
-            var list = new List<IValidator>();
+            List<IValidator> list = new();
             foreach (var typeToValidators in instanceCache)
             {
                 var targetType = typeToValidators.Key;

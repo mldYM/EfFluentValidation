@@ -53,7 +53,7 @@ public class Tests
         var options = DbContextOptions();
 
         await using SampleDbContext data = new(options, factory);
-        var entity = new Employee
+        Employee entity = new()
         {
             Content = "Foo"
         };

@@ -49,14 +49,14 @@ namespace EfFluentValidation
                     .ToList();
                 if (nonPublicValidators.Any())
                 {
-                    throw new Exception($"Found some non public validators were found in {assemblyName}:{Environment.NewLine}{string.Join(Environment.NewLine, nonPublicValidators.Select(x => x.FullName))}.");
+                    throw new($"Found some non public validators were found in {assemblyName}:{Environment.NewLine}{string.Join(Environment.NewLine, nonPublicValidators.Select(x => x.FullName))}.");
                 }
             }
 
             var results = AssemblyScanner.FindValidatorsInAssembly(assembly).ToList();
             if (throwForNoValidatorsFound && !results.Any())
             {
-                throw new Exception($"No validators were found in {assemblyName}.");
+                throw new($"No validators were found in {assemblyName}.");
             }
 
             return results;

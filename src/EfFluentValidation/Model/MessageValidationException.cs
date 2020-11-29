@@ -17,7 +17,7 @@ namespace EfFluentValidation
         {
             get
             {
-                var builder = new StringBuilder("Validation failed");
+                StringBuilder builder = new("Validation failed");
                 builder.AppendLine();
                 foreach (var error in Errors)
                 {

@@ -242,7 +242,7 @@ namespace EfFluentValidation
         {
             var validators = ValidationFinder.FromAssemblyContaining<T>();
 
-            var typeCache = new ValidatorTypeCache(validators);
+            ValidatorTypeCache typeCache = new(validators);
             Factory = type => typeCache.GetValidators(type);
         }
     }

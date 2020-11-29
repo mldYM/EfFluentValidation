@@ -45,7 +45,7 @@ namespace EfFluentValidation
 
             foreach (var entry in dbContext.AddedEntries())
             {
-                var validationFailures = new List<TypeValidationFailure>();
+                List<TypeValidationFailure> validationFailures = new();
                 var clrType = entry.Metadata.ClrType;
                 var validationContext = BuildValidationContext(dbContext, entry);
                 foreach (var validator in validatorFactory(clrType))
@@ -56,13 +56,13 @@ namespace EfFluentValidation
 
                 if (validationFailures.Any())
                 {
-                    yield return new EntityValidationFailure(entry.Entity, clrType, validationFailures);
+                    yield return new(entry.Entity, clrType, validationFailures);
                 }
             }
 
             foreach (var entry in dbContext.ModifiedEntries())
             {
-                var validationFailures = new List<TypeValidationFailure>();
+                List<TypeValidationFailure> validationFailures = new();
                 var clrType = entry.Metadata.ClrType;
                 var validationContext = BuildValidationContext(dbContext, entry);
                 var changedProperties = entry.ChangedProperties().ToList();
@@ -76,7 +76,7 @@ namespace EfFluentValidation
 
                 if (validationFailures.Any())
                 {
-                    yield return new EntityValidationFailure(entry.Entity, clrType, validationFailures);
+                    yield return new(entry.Entity, clrType, validationFailures);
                 }
             }
         }
