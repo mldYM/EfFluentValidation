@@ -201,7 +201,7 @@ It can only be used against validators that have a public default constructor (i
 <a id='snippet-validatortypecacheusage'></a>
 ```cs
 var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
-var typeCache = new ValidatorTypeCache(scanResults);
+ValidatorTypeCache typeCache = new(scanResults);
 var validators = typeCache.GetValidators(typeof(Employee));
 ```
 <sup><a href='/src/Tests/Tests.cs#L113-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-validatortypecacheusage' title='Start of snippet'>anchor</a></sup>

@@ -9,8 +9,8 @@ namespace EfFluentValidation
 {
     public class ValidatorTypeCache
     {
-        ConcurrentDictionary<Type, IEnumerable<IValidator>> entityMapCache = new ConcurrentDictionary<Type, IEnumerable<IValidator>>();
-        Dictionary<Type, List<IValidator>> instanceCache = new Dictionary<Type, List<IValidator>>();
+        ConcurrentDictionary<Type, IEnumerable<IValidator>> entityMapCache = new();
+        Dictionary<Type, List<IValidator>> instanceCache = new();
 
         public ValidatorTypeCache(IEnumerable<Result> scanResults)
         {

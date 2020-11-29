@@ -19,7 +19,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
+        await using SampleDbContext data = new(options, factory);
         data.Add(
             new Employee
             {
@@ -38,7 +38,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
+        await using SampleDbContext data = new(options, factory);
         data.Add(new Employee {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
             () => data.SaveChangesAsync());
@@ -52,7 +52,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
+        await using SampleDbContext data = new(options, factory);
         var entity = new Employee
         {
             Content = "Foo"
@@ -70,8 +70,8 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
-        var entity = new Employee
+        await using SampleDbContext data = new(options, factory);
+        Employee entity = new()
         {
             Content = "Foo"
         };
@@ -87,7 +87,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
+        await using SampleDbContext data = new(options, factory);
         data.Add(new Employee {Content = ""});
         data.Add(new Company {Content = ""});
         var exception = await Assert.ThrowsAsync<EntityValidationException>(
@@ -113,7 +113,7 @@ public class Tests
         #region ValidatorTypeCacheUsage
 
         var scanResults = ValidationFinder.FromAssemblyContaining<SampleDbContext>();
-        var typeCache = new ValidatorTypeCache(scanResults);
+        ValidatorTypeCache typeCache = new(scanResults);
         var validators = typeCache.GetValidators(typeof(Employee));
 
         #endregion
@@ -126,7 +126,7 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
+        await using SampleDbContext data = new(options, factory);
         data.Add(new Employee {Content = "a"});
         await data.SaveChangesAsync();
     }
@@ -136,16 +136,16 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data1 = new SampleDbContext(options, factory);
-        var employee = new Employee
+        await using SampleDbContext data1 = new(options, factory);
+        Employee employee = new()
         {
             Content = "a"
         };
         data1.Add(employee);
         await data1.SaveChangesAsync();
 
-        await using var data2 = new SampleDbContext(options, factory);
-        var update = new Employee
+        await using SampleDbContext data2 = new(options, factory);
+        Employee update = new()
         {
             Id = employee.Id
         };
@@ -160,8 +160,8 @@ public class Tests
     {
         var options = DbContextOptions();
 
-        await using var data = new SampleDbContext(options, factory);
-        var employee = new Employee
+        await using SampleDbContext data = new(options, factory);
+        Employee employee = new()
         {
             Content = "a"
         };

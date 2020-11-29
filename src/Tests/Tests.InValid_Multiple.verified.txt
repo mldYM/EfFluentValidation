@@ -61,5 +61,9 @@ Validation failed
         }
       ]
     }
-  ]
+  ],
+  StackTrace: 
+at EfFluentValidation.DbContextValidator.Validate(DbContext dbContext, Func`2 validatorFactory)
+at EfFluentValidation.ValidatingDbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+at Xunit.Assert.RecordExceptionAsync(Func`1 testCode)
 }
